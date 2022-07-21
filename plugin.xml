@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin 
+    xmlns="http://apache.org/cordova/ns/plugins/1.0" id="cordova-plugin-tesseract-digits" version="0.0.1">
+    <name>Tesseract Plugin Digits</name>
+    <engines>
+        <engine name="cordova-android" version=">=3.6.0" />
+        <!-- Requires CordovaPlugin.preferences -->
+    </engines>
+    <js-module src="www/tesseractPluginDigits.js" name="TesseractPluginDigits">
+        <clobbers target="TesseractPluginDigits" />
+    </js-module>
+    <!-- android -->
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="TesseractPluginDigits">
+                <param name="android-package" value="com.dgp.cordova.TesseractPluginDigits"/>
+            </feature>
+        </config-file>
+        <asset src="tessdata" target="tessdata" />
+       <framework src="com.rmtheis:tess-two:9.0.0" />
+        <source-file src="src/android/TesseractPluginDigits.java"  target-dir="src/com/tesseract/phonegap"  />
+    </platform>
+</plugin>
