@@ -1,6 +1,6 @@
 var TesseractPluginDigits = {
-    echo: function (language, successCallback, errorCallback) {
-        cordova.exec(successCallback, errorCallback, "TesseractPluginDigits", "echo", [language]);
+    echo: function (message, successCallback, errorCallback) {
+        cordova.exec(successCallback, errorCallback, "TesseractPluginDigits", "echo", [message]);
     }
 };
 module.exports = TesseractPluginDigits;

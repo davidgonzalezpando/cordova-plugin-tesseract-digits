@@ -27,11 +27,10 @@ import android.os.Environment;
 import android.util.Base64;
 import android.util.Log;
 import android.content.Context;
-
+import android.widget.Toast;
 import com.googlecode.tesseract.android.TessBaseAPI;
 
 public class TesseractPluginDigits extends CordovaPlugin {
-    public static final String DATA_PATH = Environment.getExternalStorageDirectory().toString() + "/OCRFolder/";
     private static final String TAG = "TesseractPluginDigits";
     private String lang = "eng";
 
@@ -39,17 +38,12 @@ public class TesseractPluginDigits extends CordovaPlugin {
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
 
         try {
-            String language = args.getString(0);
-
+            String message = args.getString(0);
             String result = null;
             Log.v(TAG, "Action: " + action);
-            if (action.equals("recognizeText")) {
-                String imageData = args.getString(1);
-                result = recognizeText(imageData, language);
-            } else {
-                result = loadLanguage(language);
-            }
-
+            if (action.equals("echo")) {
+                result = echo(message);
+            } 
             Log.v(TAG, "Result: " + result);
             this.echo(result, callbackContext);
             return true;
@@ -61,9 +55,10 @@ public class TesseractPluginDigits extends CordovaPlugin {
     }
 
 
-    public void echo(String result, CallbackContext callbackContext) {
+    public void echo(String msg, CallbackContext callbackContext) {
         if (result != null && result.length() > 0) {
-            callbackContext.success(result);
+            Toast.makeText(webView.getContext(), msg, Toast.LENGTH_LONG).show();
+            callbackContext.success(msg);
         } else {
             callbackContext.error("Expected one non-empty string argument.");
         }
